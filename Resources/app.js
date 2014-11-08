@@ -173,6 +173,7 @@ var view23= Ti.UI.createView({
 
 var textField23= Ti.UI.createTextField({
 	backgroundColor: 'white',
+	keyboardType:Titanium.UI.KEYBOARD_EMAIL,
 	color:'black',
 	hintText: 'Email',
 	borderRadius:15,
@@ -196,6 +197,7 @@ var textField24= Ti.UI.createTextField({
 	backgroundColor: 'white',
 	color:'black',
 	hintText: 'Password',
+	passwordMask:true,
 	borderRadius:15,
 	borderWidth:5,
 	width:'450px',
@@ -218,6 +220,14 @@ var button22=Ti.UI.createButton({
 	backgroundColor:'white'
 	
 });
+
+//button22.addEventListener('click', function(e){
+	
+		
+	
+		
+//});
+
 
 var button23=Ti.UI.createButton({
 	title:'Sign up',
@@ -248,39 +258,53 @@ var view25= Ti.UI.createView({
 	height:'80px'
 	
 });
+
+var ScreenWidth = Ti.Platform.displayCaps.platformWidth;
+
+var viewbuyuk2= Ti.UI.createView({
+	backgroundColor:'transparent',
+	width:ScreenWidth +'px',
+	left:0,
+	height:'100%'
+});
 ////////////////////////////////////////////////////////
 view1.add(textField);
 viewbuyuk.add(view1);
+
+
 //////////////////////////
 
 view2.add(textField2);
-
 viewbuyuk.add(view2);
 ////////////////////////
 view3.add(button2);
 view3.add(button3);
-
 viewbuyuk.add(view3);
+///////////////////////////
+
 viewbuyuk.add(logo);
 loginWindow.add(viewbuyuk);
-
+//////////////////////////////////
 view21.add(textField21);
-loginWindow.add(view21);
+viewbuyuk2.add(view21);
 
 view22.add(textField22);
-loginWindow.add(view22);
+viewbuyuk2.add(view22);
 
 view23.add(textField23);
-loginWindow.add(view23);
+viewbuyuk2.add(view23);
 
 view24.add(textField24);
-loginWindow.add(view24);
+viewbuyuk2.add(view24);
 
-
-
+///////////////////////////////////////77
 view25.add(button22);
 view25.add(button23);
 
 loginWindow.add(view25);
+//////////////////////////////////////
+loginWindow.add(viewbuyuk2);
+///////////////////////////////////
 loginWindow.open();
+
 
