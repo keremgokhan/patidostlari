@@ -9,7 +9,7 @@ var loginWindow = Ti.UI.createWindow({
 });
 
 var view1= Ti.UI.createView({
-	backgroundColor:'white',
+	backgroundColor:'transparent',
 	width:'450px',
 	top:'50%',
 	height:'80px'
@@ -18,8 +18,11 @@ var view1= Ti.UI.createView({
 
 var textField= Ti.UI.createTextField({
 	backgroundColor: 'white',
+	borderRadius:15,
+	borderWidth:5,
 	color:'black',
 	hintText: 'Enter username',
+	
 	width:'450px',
 	height:'80px',
 	left:0,
@@ -28,7 +31,7 @@ var textField= Ti.UI.createTextField({
 });
 
 var view2= Ti.UI.createView({
-	backgroundColor:'white',
+	backgroundColor:'transparent',
 	width:'450px',
 	top:'60%',
 	height:'80px'
@@ -39,6 +42,8 @@ var textField2= Ti.UI.createTextField({
 	backgroundColor: 'white',
 	color:'black',
 	hintText: 'Enter password',
+	borderRadius:15,
+	borderWidth:5,
 	width:'450px',
 	height:'80px',
 	left:0,
@@ -50,9 +55,11 @@ var button2=Ti.UI.createButton({
 	title:'Sign in',
 	top:0,
 	left:0,
-	width:'auto',
+	width:'175px',
 	heigth:'80px',
 	color:'#808080',
+	borderRadius:15,
+	borderWidth:5,
 	font:{fontSize:15,fontFamily:'Helvetica Neue'},
 	backgroundColor:'white'
 	
@@ -70,9 +77,11 @@ var button3=Ti.UI.createButton({
 	title:'Sign up',
 	top:0,
 	right:0,
-	width:'auto',
+	width:'175px',
 	heigth:'80px',
 	color:'#808080',
+	borderRadius:15,
+	borderWidth:5,
 	font:{fontSize:15,fontFamily:'Helvetica Neue'},
 	backgroundColor:'white'
 	
@@ -93,23 +102,37 @@ var view3= Ti.UI.createView({
 	
 });
 
+var logo=Ti.UI.createImageView({
+	image:'logo02.png',
+	width:'450px',
+	top: '15%'
+});
 
+var ScreenWidth = Ti.Platform.displayCaps.platformWidth;
+
+var viewbuyuk= Ti.UI.createView({
+	backgroundColor:'transparent',
+	width:ScreenWidth +'px',
+	left:-ScreenWidth+ 'px',
+	height:'100%'
+});
 
 
 view1.add(textField);
 
 
-loginWindow.add(view1);
+viewbuyuk.add(view1);
 //////////////////////////
 
 view2.add(textField2);
 
-loginWindow.add(view2);
+viewbuyuk.add(view2);
 ////////////////////////
 view3.add(button2);
 view3.add(button3);
-loginWindow.add(view3);
-
+viewbuyuk.add(view3);
+viewbuyuk.add(logo);
+loginWindow.add(viewbuyuk);
 
 
 
