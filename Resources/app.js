@@ -89,10 +89,16 @@ var button3=Ti.UI.createButton({
 });
 
 button3.addEventListener('click', function(e){
-	if(textField.value.length==0)
-		alert('bir seyler giriniz');
-	else
-		alert(textField.value);
+	//viewbuyuk.left=ScreenWidth +'px';
+	viewbuyuk.animate({
+		left: -ScreenWidth +'px',
+		duration:300
+	});
+	//viewbuyuk2.left=0;
+	viewbuyuk2.animate({
+		left: 0,
+		duration: 300
+	});
 		
 });
 var view3= Ti.UI.createView({
@@ -114,7 +120,7 @@ var ScreenWidth = Ti.Platform.displayCaps.platformWidth;
 var viewbuyuk= Ti.UI.createView({
 	backgroundColor:'transparent',
 	width:ScreenWidth +'px',
-	left:-ScreenWidth+ 'px',
+	left:0,
 	height:'100%'
 });
 
@@ -222,13 +228,25 @@ var button22=Ti.UI.createButton({
 	
 });
 
-button22.addEventListener('click', function(e){
+/*button22.addEventListener('click', function(e){
 	
 		viewbuyuk.left=0;
 		viewbuyuk2.left=ScreenWidth +'px';
 		
+});*/
+button22.addEventListener('click', function(e){
+	//viewbuyuk.left=ScreenWidth +'px';
+	viewbuyuk.animate({
+		left: 0,
+		duration:300
+	});
+	//viewbuyuk2.left=0;
+	viewbuyuk2.animate({
+		left: ScreenWidth +'px',
+		duration: 300
+	});
+		
 });
-
 
 var button23=Ti.UI.createButton({
 	title:'Sign up',
@@ -269,7 +287,7 @@ var ScreenWidth = Ti.Platform.displayCaps.platformWidth;
 var viewbuyuk2= Ti.UI.createView({
 	backgroundColor:'transparent',
 	width:ScreenWidth +'px',
-	left:0,
+	left:ScreenWidth +'px',
 	height:'100%'
 });
 ////////////////////////////////////////////////////////
