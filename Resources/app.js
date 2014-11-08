@@ -1,6 +1,10 @@
 // this sets the background color of the master UIView (when there are no windows/tab groups on it)
 Titanium.UI.setBackgroundColor('#FD9627');
 
+var Cloud = require('ti.cloud');
+Cloud.debug = true;
+
+
 var loginWindow = Ti.UI.createWindow({
 	title: 'Login',
 	backgroundColor:'transparent',
@@ -71,6 +75,22 @@ button2.addEventListener('click', function(e){
 		alert('Enter username');
 	else if(textField2.value.length==0)
 		alert('Enter password');
+	else
+	{
+		Cloud.Users.login({ 
+		    login: textField.value,
+		    password: textField2.value
+		}, function(e) {
+		    if (e.success) {
+		    	
+		    	Ti.include('main.js');
+		    	mainWindow.open();
+		    	     
+		    } else {
+		        Ti.API.info("Login failed.");
+		    }
+});
+	}
 		
 });
 		
@@ -271,6 +291,27 @@ button23.addEventListener('click', function(e){
 		alert('Enter email');
 	else if(textField24.value.length==0)
 		alert('Enter password');
+	else
+	{
+		var str = textField22.value;
+		var fname = str.substr(0,str.indexOf(' '));
+		var sname = str.substr(str.indexOf(' ')+1);
+		Cloud.Users.create({ 
+		    username: textField21.value,
+		    email: textField23.value,
+		    password: textField24.value,
+		    password_confirmation: textField24.value,
+		    first_name: fname,
+		    last_name: sname
+		}, function(e) {
+		    if (e.success) {
+		        Ti.include('main.js');
+		    	mainWindow.open();
+		    } else {
+		        alert("Signup failed.");
+		    }
+		});
+	}
 	
 });
 
@@ -331,66 +372,7 @@ loginWindow.add(viewbuyuk2);
 loginWindow.open();
 
 
-/* MAIN WINDOW */
 
-var mainWindow = Ti.UI.createWindow({
-	title: 'Pati Dostlari'
-});
-
-var MapModule = require('ti.map');
-
-var rc = MapModule.isGooglePlayServicesAvailable();
-switch (rc) {
-    case MapModule.SUCCESS:
-        Ti.API.info('Google Play services is installed.');
-        break;
-    case MapModule.SERVICE_MISSING:
-        alert('Google Play services is missing. Please install Google Play services from the Google Play store.');
-        break;
-    case MapModule.SERVICE_VERSION_UPDATE_REQUIRED:
-        alert('Google Play services is out of date. Please update Google Play services.');
-        break;
-    case MapModule.SERVICE_DISABLED:
-        alert('Google Play services is disabled. Please enable Google Play services.');
-        break;
-    case MapModule.SERVICE_INVALID:
-        alert('Google Play services cannot be authenticated. Reinstall Google Play services.');
-        break;
-    default:
-        alert('Unknown error.');
-        break;
-}
-
-Titanium.Geolocation.getCurrentPosition(function(e)
-{
-    if (e.error)
-    {
-        alert('HFL cannot get your current location');
-        return;
-    }
- 
-    var longitude = e.coords.longitude;
-    var latitude = e.coords.latitude;
-    var altitude = e.coords.altitude;
-    var heading = e.coords.heading;
-    var accuracy = e.coords.accuracy;
-    var speed = e.coords.speed;
-    var timestamp = e.coords.timestamp;
-    var altitudeAccuracy = e.coords.altitudeAccuracy;
-    
-    var mapview = MapModule.createView({
-		mapType: MapModule.NORMAL_TYPE,
-		userLocation: true,
-		animate: true,
-		width: '100%',
-		height: '100%',
-		region: {latitude: latitude, longitude: longitude, latitudeDelta: 0.1, longitudeDelta: 0.1 }
-	});
- 
-    mainWindow.add(mapview);
-});
-
-//mainWindow.open();
 
 
 
