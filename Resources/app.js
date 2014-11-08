@@ -42,6 +42,7 @@ var textField2= Ti.UI.createTextField({
 	backgroundColor: 'white',
 	color:'black',
 	hintText: 'Enter password',
+	passwordMask:true,
 	borderRadius:15,
 	borderWidth:5,
 	width:'450px',
@@ -67,9 +68,9 @@ var button2=Ti.UI.createButton({
 
 button2.addEventListener('click', function(e){
 	if(textField.value.length==0)
-		alert('bir seyler giriniz');
-	else
-		alert(textField.value);
+		alert('Enter username');
+	else if(textField2.value.length==0)
+		alert('Enter password');
 		
 });
 		
@@ -221,12 +222,12 @@ var button22=Ti.UI.createButton({
 	
 });
 
-//button22.addEventListener('click', function(e){
+button22.addEventListener('click', function(e){
 	
+		viewbuyuk.left=0;
+		viewbuyuk2.left=ScreenWidth +'px';
 		
-	
-		
-//});
+});
 
 
 var button23=Ti.UI.createButton({
@@ -244,11 +245,15 @@ var button23=Ti.UI.createButton({
 });
 
 button23.addEventListener('click', function(e){
-	if(textField.value.length==0)
-		alert('bir seyler giriniz');
-	else
-		alert(textField.value);
-		
+	if(textField21.value.length==0)
+		alert('Enter username');
+	else if(textField22.value.length==0)
+		alert('Enter name surname');
+	else if(textField23.value.length==0)
+		alert('Enter email');
+	else if(textField24.value.length==0)
+		alert('Enter password');
+	
 });
 
 var view25= Ti.UI.createView({
@@ -301,7 +306,7 @@ viewbuyuk2.add(view24);
 view25.add(button22);
 view25.add(button23);
 
-loginWindow.add(view25);
+viewbuyuk2.add(view25);
 //////////////////////////////////////
 loginWindow.add(viewbuyuk2);
 ///////////////////////////////////
