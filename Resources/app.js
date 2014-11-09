@@ -153,12 +153,14 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					var bg = 'white';
 					var text = "Empty (Click to fill)";
 					var textcolor= '#FD9627';
+					var block0isFull = false;
 					
 					if (locat.block0.length > 0)
 					{
 						bg = '#FD9627';
 						text = locat.block0;
 						textcolor= 'white';
+						block0isFull = true;
 					}
 					
 					var locview1= Ti.UI.createView({
@@ -173,6 +175,11 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						height:'250px'
 						
 					});
+					
+					
+					
+					
+					
 					
 					var loclabel11=Ti.UI.createLabel({
 						
@@ -201,12 +208,14 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					bg = 'white';
 					text = "Empty (Click to fill)";
 					textcolor= '#FD9627';
+					var block1isFull = false;
 					
 					if (locat.block1.length > 0)
 					{
 						bg = '#FD9627';
 						text = locat.block1;
 						textcolor= 'white';
+						block1isFull = true;
 					}
 					
 					var locview2= Ti.UI.createView({
@@ -244,6 +253,70 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						bottom:'25px'
 					});
+					
+					Cloud.Users.showMe(function (e) {
+					    if (e.success) {
+					        var user = e.users[0];
+					        locview1.addEventListener('click', function(e){
+						
+								if (block0isFull == false)
+								{
+									Cloud.Objects.update({
+									    classname: 'Location',
+									    id: locat.id,
+									    fields: {
+									    	block0: user.first_name + ' ' + user.last_name
+									    }
+									}, function (e) {
+									    if (e.success) {
+									        block0isFull = true;
+									        locview1.backgroundColor = '#FD9627';
+									        loclabel11.color = "#FFF";
+									        loclabel12.color = "#FFF";
+									        loclabel12.text = user.first_name + ' ' + user.last_name;
+									        
+									    } else {
+									        alert('Error:\n' +
+									            ((e.error && e.message) || JSON.stringify(e)));
+									    }
+									});
+								}
+								
+								
+							});
+							locview2.addEventListener('click', function(e){
+						
+								if (block1isFull == false)
+								{
+									Cloud.Objects.update({
+									    classname: 'Location',
+									    id: locat.id,
+									    fields: {
+									    	block1: user.first_name + ' ' + user.last_name
+									    }
+									}, function (e) {
+									    if (e.success) {
+									        block1isFull = true;
+									        locview2.backgroundColor = '#FD9627';
+									        loclabel21.color = "#FFF";
+									        loclabel22.color = "#FFF";
+									        loclabel22.text = user.first_name + ' ' + user.last_name;
+									    } else {
+									        alert('Error:\n' +
+									            ((e.error && e.message) || JSON.stringify(e)));
+									    }
+									});
+								}
+								
+								
+							});
+					    } else {
+					        alert('Error:\n' +
+					            ((e.error && e.message) || JSON.stringify(e)));
+					    }
+					});
+					
+					
 					////////////////////////////////
 					locview1.add(loclabel11);
 					locview1.add(loclabel12);
