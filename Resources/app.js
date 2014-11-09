@@ -5,9 +5,9 @@ var Cloud = require('ti.cloud');
 Cloud.debug = true;
 
 
-//Ti.include('login.js');
+Ti.include('login.js');
 
-Ti.include('location.js');
+//Ti.include('location.js');
 
 
 
