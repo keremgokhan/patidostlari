@@ -4,10 +4,18 @@ Titanium.UI.setBackgroundColor('#FD9627');
 var Cloud = require('ti.cloud');
 Cloud.debug = true;
 
-
-Ti.include('login.js');
+if (Ti.App.Properties.hasProperty('isLogged') && Ti.App.Properties.getBool('isLogged'))
+{
+	Ti.include('main.js');
+}
+else
+{
+	Ti.include('login.js');
+}
 
 //Ti.include('location.js');
+
+
 
 
 
