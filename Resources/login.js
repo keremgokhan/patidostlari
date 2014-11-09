@@ -3,6 +3,13 @@ var loginWindow = Ti.UI.createWindow({
 	backgroundColor:'transparent'
 });
 
+
+var logo=Ti.UI.createImageView({
+	image:'logo02.png',
+	width:'450px',
+	top: '15%'
+});
+
 var view1= Ti.UI.createView({
 	backgroundColor:'transparent',
 	width:'450px',
@@ -68,6 +75,15 @@ button2.addEventListener('click', function(e){
 		alert('Enter password');
 	else
 	{
+		var anim = Ti.UI.createAnimation({
+			autoreverse: true,
+			opacity: 0,
+			duration: 1000
+		});
+		anim.addEventListener('complete', function(e){
+			logo.animate(anim);
+		});
+		logo.animate(anim);
 		Cloud.Users.login({ 
 		    login: textField.value,
 		    password: textField2.value
@@ -82,7 +98,7 @@ button2.addEventListener('click', function(e){
 		    } else {
 		        Ti.API.info("Login failed.");
 		    }
-});
+		});
 	}
 		
 });
@@ -120,12 +136,6 @@ var view3= Ti.UI.createView({
 	top:'70%',
 	height:'80px'
 	
-});
-
-var logo=Ti.UI.createImageView({
-	image:'logo02.png',
-	width:'450px',
-	top: '15%'
 });
 
 var ScreenWidth = Ti.Platform.displayCaps.platformWidth;
@@ -306,6 +316,16 @@ button23.addEventListener('click', function(e){
 		var str = textField22.value;
 		var fname = str.substr(0,str.indexOf(' '));
 		var sname = str.substr(str.indexOf(' ')+1);
+		var anim = Ti.UI.createAnimation({
+			autoreverse: true,
+			opacity: 0,
+			duration: 1000
+		});
+		anim.addEventListener('complete', function(e){
+			logo2.animate(anim);
+		});
+		logo2.animate(anim);
+		
 		Cloud.Users.create({ 
 		    username: textField21.value,
 		    email: textField23.value,
