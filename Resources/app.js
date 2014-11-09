@@ -147,9 +147,19 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						borderRadius:15,
 						borderWidth:5
 					});
+					
+					var bg = '#7D736C';
+					var text = "Empty (Click to fill)";
+					
+					if (locat.block0.length > 0)
+					{
+						bg = '#FD9627';
+						text = locat.block0;
+					}
+					
 					var locview1= Ti.UI.createView({
 						
-						backgroundColor: '#7D736C',
+						backgroundColor: bg,
 						borderRadius:15,
 						borderWidth:5,
 						width:'500px',
@@ -176,16 +186,25 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						textAlign:'center',
 						backgroundColor: 'transparent',
 						width:'500px',
-						text: 'Berna Kabadayı',
+						text: text,
 						color:'white',
 						height:'100px',
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						bottom:'25px'
 					});
 					
+					bg = '#7D736C';
+					text = "Empty (Click to fill)";
+					
+					if (locat.block1.length > 0)
+					{
+						bg = '#FD9627';
+						text = locat.block1;
+					}
+					
 					var locview2= Ti.UI.createView({
 						
-						backgroundColor: '#7D736C',
+						backgroundColor: bg,
 						borderRadius:15,
 						borderWidth:5,
 						width:'500px',
@@ -211,7 +230,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						textAlign:'center',
 						backgroundColor: 'transparent',
 						width:'500px',
-						text: 'None',
+						text: text,
 						color:'white',
 						height:'100px',
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
