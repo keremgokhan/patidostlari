@@ -4,9 +4,349 @@ Titanium.UI.setBackgroundColor('#FD9627');
 var Cloud = require('ti.cloud');
 Cloud.debug = true;
 
+
+/* MAIN WINDOW */
+
+var mainWindow = Ti.UI.createWindow({
+	title: 'Pati Dostlari'
+});
+
+
+
+var MapModule = require('ti.map');
+
+var rc = MapModule.isGooglePlayServicesAvailable();
+switch (rc) {
+    case MapModule.SUCCESS:
+        Ti.API.info('Google Play services is installed.');
+        break;
+    case MapModule.SERVICE_MISSING:
+        alert('Google Play services is missing. Please install Google Play services from the Google Play store.');
+        break;
+    case MapModule.SERVICE_VERSION_UPDATE_REQUIRED:
+        alert('Google Play services is out of date. Please update Google Play services.');
+        break;
+    case MapModule.SERVICE_DISABLED:
+        alert('Google Play services is disabled. Please enable Google Play services.');
+        break;
+    case MapModule.SERVICE_INVALID:
+        alert('Google Play services cannot be authenticated. Reinstall Google Play services.');
+        break;
+    default:
+        alert('Unknown error.');
+        break;
+}
+
+var calculateLatLngfromPixels = function(mapview, xPixels, yPixels) {
+
+    var region = mapview.actualRegion || mapview.region;
+    var widthInPixels = mapview.rect.width;
+    var heightInPixels = mapview.rect.height;
+
+    // should invert because of the pixel reference frame
+    heightDegPerPixel = -region.latitudeDelta / heightInPixels; 
+    widthDegPerPixel = region.longitudeDelta / widthInPixels;
+
+    return {
+        lat : (yPixels - heightInPixels / 2) * heightDegPerPixel + region.latitude,
+        lon : (xPixels - widthInPixels / 2) * widthDegPerPixel + region.longitude
+
+    };
+};
+
+Titanium.Geolocation.getCurrentPosition(function(e)
+{
+    if (e.error)
+    {
+        alert('HFL cannot get your current location');
+        return;
+    }
+ 
+    var longitude = e.coords.longitude;
+    var latitude = e.coords.latitude;
+    var altitude = e.coords.altitude;
+    var heading = e.coords.heading;
+    var accuracy = e.coords.accuracy;
+    var speed = e.coords.speed;
+    var timestamp = e.coords.timestamp;
+    var altitudeAccuracy = e.coords.altitudeAccuracy;
+    
+    var mapContain = Ti.UI.createView({
+		width: '100%',
+		height: '100%'
+    });
+    
+    var mapview = MapModule.createView({
+		mapType: MapModule.NORMAL_TYPE,
+		userLocation: true,
+		animate: true,
+		width: '100%',
+		height: '100%',
+		region: {latitude: latitude, longitude: longitude, latitudeDelta: 0.1, longitudeDelta: 0.1 }
+	});
+	
+	mapview.addEventListener('click', function(evt)
+    {
+        // get event properties
+        var annotation = evt.annotation; //get the Myid from annotation
+        
+        Ti.API.info("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " + annotation);
+        
+        /*var clicksource = evt.clicksource;
+ 
+        if (clicksource='leftButton'){  //leftButton event      
+            alert("leftButton of " + annotation + " has been clicked.");
+        }
+        if (clicksource='title'){   //title event
+            alert("title of " + annotation + " has been clicked.");                 
+        }*/
+       if (clicksource='title'){   
+	       var eventid = annotation.myid;
+	       
+	       Cloud.Objects.show({
+			    classname: 'Location',
+			    id: eventid
+			}, function (e) {
+			    if (e.success) {
+			        
+			        var locat = e.Location[0];
+			        
+			        var locationWindow = Ti.UI.createWindow({
+						backgroundColor:'white',
+						title: 'Location'
+					});
+					
+					
+					var loclabel0=Ti.UI.createLabel({
+						
+						textAlign:'center',
+						backgroundColor: '#FD9627',
+						width:'350px',
+						text: locat.name,
+						color:'white',
+						height:'70px',
+						font:{fontSize:15,fontFamily:'Helvetica Neue'},
+						top:'40%',
+						borderRadius:15,
+						borderWidth:5
+					});
+					var locview1= Ti.UI.createView({
+						
+						backgroundColor: '#FD9627',
+						borderRadius:15,
+						borderWidth:5,
+						width:'500px',
+						top:'50%',
+						//text: '09.00-12.00',
+						height:'250px'
+						
+					});
+					
+					var loclabel11=Ti.UI.createLabel({
+						
+						textAlign:'center',
+						backgroundColor: '#FD9627',
+						width:'500px',
+						text: '09.00-12.00',
+						color:'white',
+						height:'100px',
+						font:{fontSize:25,fontFamily:'Helvetica Neue'},
+						top:'25px'
+					});
+					
+					var loclabel12=Ti.UI.createLabel({
+						
+						textAlign:'center',
+						backgroundColor: '#FD9627',
+						width:'500px',
+						text: 'Berna Kabadayı',
+						color:'white',
+						height:'100px',
+						font:{fontSize:25,fontFamily:'Helvetica Neue'},
+						bottom:'25px'
+					});
+					
+					var locview2= Ti.UI.createView({
+						
+						backgroundColor: '#7D736C',
+						borderRadius:15,
+						borderWidth:5,
+						width:'500px',
+						top:'75%',
+						height:'250px'
+						
+					});
+					
+					var loclabel21=Ti.UI.createLabel({
+						
+						textAlign:'center',
+						backgroundColor: 'transparent',
+						width:'500px',
+						text: '15.00-18.00',
+						color:'white',
+						height:'100px',
+						font:{fontSize:25,fontFamily:'Helvetica Neue'},
+						top:'25px'
+					});
+					
+					var loclabel22=Ti.UI.createLabel({
+						
+						textAlign:'center',
+						//backgroundColor: '#7D736C',
+						width:'500px',
+						text: 'None',
+						color:'white',
+						height:'100px',
+						font:{fontSize:25,fontFamily:'Helvetica Neue'},
+						bottom:'25px'
+					});
+					////////////////////////////////7
+					locview1.add(loclabel11);
+					locview1.add(loclabel12);
+					
+					locview2.add(loclabel21);
+					locview2.add(loclabel22);
+					locationWindow.add(loclabel0);
+					locationWindow.add(locview1);
+					locationWindow.add(locview2);
+					locationWindow.open();
+			        
+			    } else {
+			        alert('Error:\n' +
+			            ((e.error && e.message) || JSON.stringify(e)));
+			    }
+			});
+		           
+        }
+       
+      
+       
+                  
+	});
+	
+	var llatitude = 0;
+	var llongitude = 0;
+	
+	mapview.addEventListener('regionchanged',function(evt){
+	    llatitude = evt.latitude.toPrecision(10);
+	    llongitude = evt.longitude.toPrecision(10);
+	});
+	
+    mainWindow.add(mapview);
+    
+    mainWindow.addEventListener('open', function(e){
+		Cloud.Objects.query({
+		    classname: 'Location'
+		}, function (e) {
+		    if (e.success) {
+		        alert('Success:\n' +
+		            'Count: ' + e.Location.length);
+		        for (var i = 0; i < e.Location.length; i++) {
+		            var loc = e.Location[i];
+		            /*alert('id: ' + cars.id + '\n' +
+		                'make: ' + car.make + '\n' +
+		                'color: ' + car.color + '\n' +
+		                'year: ' + car.year + '\n' +
+		                'created_at: ' + car.created_at);*/
+		            var temp = MapModule.createAnnotation({
+					    latitude:loc.latitude,
+					    longitude:loc.longitude,
+					    title:loc.name,
+					    pincolor:MapModule.ANNOTATION_ORANGE,
+					    myid:loc.id // Custom property to uniquely identify this annotation.
+					});
+					mapview.addAnnotation(temp);
+		        }
+		    } else {
+		        alert('Error:\n' +
+		            ((e.error && e.message) || JSON.stringify(e)));
+		    }
+		});
+	});
+    
+    var addButton = Ti.UI.createButton({
+    	width: '120px',
+    	height: '120px',
+    	borderRadius: '60px',
+    	title: '+',
+    	bottom: '30px',
+    	backgroundColor: '#FD9627',
+    	font:{fontSize:40,fontFamily:'Helvetica Neue'},
+    });
+    addButton.addEventListener('click',function(){
+	   	
+	   	addButton.bottom = -200 + 'px';
+	   	
+	   	
+	   	var locationNameField = Ti.UI.createTextField({
+	   		top: '10px',
+	   		height: '100px',
+	   		width: '90%',
+	   		color: '#000',
+	   		backgroundColor: 'white',
+	   		borderColor: '#FD9627',
+	   		borderRadius: 15,
+	   		borderWidth: 5,
+	   		hintText: 'Enter a name for location...'
+	   	});
+	   	
+	   	var okButton = Ti.UI.createButton({
+	   		top: '120px',
+	   		width: '300px',
+	   		height: '100px',
+	   		color: 'white',
+	   		backgroundColor: '#FD9627',
+	   		title: 'OK'
+	   	});
+	   	
+	   	okButton.addEventListener('click',function(){
+		   	
+		   	var lname = locationNameField.value;
+		   	
+		   	locationNameField.hide();
+		   	okButton.hide();
+		   			
+		   	//var coordinate = calculateLatLngfromPixels(mapview, e.x, e.y);
+		    //var llongitude = coordinate.lat;
+		    //var llatitude = coordinate.lat;
+		    
+		    alert(llatitude + " + " + llongitude);
+		    
+		    //var Cloud = require('ti.cloud');
+			//Cloud.debug = true;
+		    
+		    Cloud.Objects.create({
+			    classname: 'Location',
+			    fields: {
+			        latitude: llatitude,
+			        longitude: llongitude,
+			        name: lname
+			    }
+			}, function (e) {
+			    if (e.success) {
+			        //var car = e.cars[0];
+			        alert('Success!');
+			    } else {
+			        alert('Error:\n' +
+			            ((e.error && e.message) || JSON.stringify(e)));
+			    }
+			});
+		
+		});
+		mainWindow.add(locationNameField);
+		mainWindow.add(okButton);
+	   	
+	});
+    mainWindow.add(addButton);
+});
+
+
+
+//Ti.include('main.js');
+
 if (Ti.App.Properties.hasProperty('isLogged') && Ti.App.Properties.getBool('isLogged'))
 {
-	Ti.include('main.js');
+	mainWindow.open();
 }
 else
 {

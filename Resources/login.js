@@ -74,8 +74,10 @@ button2.addEventListener('click', function(e){
 		}, function(e) {
 		    if (e.success) {
 		    	
-		    	Ti.include('main.js');
+		    	//Ti.include('main.js');
 		    	mainWindow.open();
+		    	
+		    	
 		    	     
 		    } else {
 		        Ti.API.info("Login failed.");
@@ -313,8 +315,9 @@ button23.addEventListener('click', function(e){
 		    last_name: sname
 		}, function(e) {
 		    if (e.success) {
-		        Ti.include('main.js');
+		        
 		    	mainWindow.open();
+		    	
 		    } else {
 		        alert("Signup failed.");
 		    }
