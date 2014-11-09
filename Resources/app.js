@@ -108,7 +108,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 			        var locat = e.Location[0];
 			        
 			        var locationWindow = Ti.UI.createWindow({
-						backgroundColor:'white',
+						backgroundColor:'#FD9627',
 						title: 'Location'
 					});
 					
@@ -127,9 +127,11 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						left: 0,
 						height: '35%',
 						width: '100%',
+						
 						mapType: MapModule.NORMAL_TYPE,
 						userLocation: true,
 						animate: true,
+						
 						region: {latitude: locat.latitude, longitude: locat.longitude, latitudeDelta: 0.1, longitudeDelta: 0.1 },
 						annotations: annots
 					});
@@ -137,10 +139,10 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					var loclabel0=Ti.UI.createLabel({
 						
 						textAlign:'center',
-						backgroundColor: '#FD9627',
+						backgroundColor: 'white',
 						width:'350px',
 						text: locat.name,
-						color:'white',
+						color:'#FD9627',
 						height:'70px',
 						font:{fontSize:15,fontFamily:'Helvetica Neue'},
 						top:'40%',
@@ -310,10 +312,13 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 	   	
 	   	var okButton = Ti.UI.createButton({
 	   		top: '120px',
-	   		width: '300px',
+	   		width: '250px',
 	   		height: '100px',
 	   		color: 'white',
+	   		borderRadius: 15,
+	   		borderWidth: 5,
 	   		backgroundColor: '#FD9627',
+	   		font:{fontSize:20,fontFamily:'Helvetica Neue'},
 	   		title: 'OK'
 	   	});
 	   	
