@@ -71,10 +71,6 @@ Titanium.Geolocation.getCurrentPosition(function(e)
     var timestamp = e.coords.timestamp;
     var altitudeAccuracy = e.coords.altitudeAccuracy;
     
-    var mapContain = Ti.UI.createView({
-		width: '100%',
-		height: '100%'
-    });
     
     var mapview = MapModule.createView({
 		mapType: MapModule.NORMAL_TYPE,
@@ -116,6 +112,27 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						title: 'Location'
 					});
 					
+					var annot = MapModule.createAnnotation({
+					    latitude:locat.latitude,
+					    longitude:locat.longitude,
+					    title:locat.name,
+					    pincolor:MapModule.ANNOTATION_ORANGE
+					});
+					
+					var annots = [];
+					annots.push(annot);
+					
+					var locmap = MapModule.createView({
+						top: 0,
+						left: 0,
+						height: '35%',
+						width: '100%',
+						mapType: MapModule.NORMAL_TYPE,
+						userLocation: true,
+						animate: true,
+						region: {latitude: locat.latitude, longitude: locat.longitude, latitudeDelta: 0.1, longitudeDelta: 0.1 },
+						annotations: annots
+					});
 					
 					var loclabel0=Ti.UI.createLabel({
 						
@@ -132,7 +149,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					});
 					var locview1= Ti.UI.createView({
 						
-						backgroundColor: '#FD9627',
+						backgroundColor: '#7D736C',
 						borderRadius:15,
 						borderWidth:5,
 						width:'500px',
@@ -145,7 +162,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					var loclabel11=Ti.UI.createLabel({
 						
 						textAlign:'center',
-						backgroundColor: '#FD9627',
+						backgroundColor: 'transparent',
 						width:'500px',
 						text: '09.00-12.00',
 						color:'white',
@@ -157,7 +174,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					var loclabel12=Ti.UI.createLabel({
 						
 						textAlign:'center',
-						backgroundColor: '#FD9627',
+						backgroundColor: 'transparent',
 						width:'500px',
 						text: 'Berna Kabadayı',
 						color:'white',
@@ -192,7 +209,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 					var loclabel22=Ti.UI.createLabel({
 						
 						textAlign:'center',
-						//backgroundColor: '#7D736C',
+						backgroundColor: 'transparent',
 						width:'500px',
 						text: 'None',
 						color:'white',
@@ -200,12 +217,13 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						bottom:'25px'
 					});
-					////////////////////////////////7
+					////////////////////////////////
 					locview1.add(loclabel11);
 					locview1.add(loclabel12);
 					
 					locview2.add(loclabel21);
 					locview2.add(loclabel22);
+					locationWindow.add(locmap);
 					locationWindow.add(loclabel0);
 					locationWindow.add(locview1);
 					locationWindow.add(locview2);
@@ -239,8 +257,8 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 		    classname: 'Location'
 		}, function (e) {
 		    if (e.success) {
-		        alert('Success:\n' +
-		            'Count: ' + e.Location.length);
+		        /*alert('Success:\n' +
+		            'Count: ' + e.Location.length);*/
 		        for (var i = 0; i < e.Location.length; i++) {
 		            var loc = e.Location[i];
 		            /*alert('id: ' + cars.id + '\n' +
