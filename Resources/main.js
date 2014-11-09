@@ -65,5 +65,33 @@ Titanium.Geolocation.getCurrentPosition(function(e)
     	backgroundColor: '#FD9627',
     	font:{fontSize:20,fontFamily:'Helvetica Neue'},
     });
+    addButton.addEventListener('click',function(){
+	   	
+	   	addButton.bottom = -200 + 'px';
+	   	
+	   	
+	   	var locationNameField = Ti.UI.createTextField({
+	   		top: '10px',
+	   		height: '100px',
+	   		width: '90%',
+	   		hintText: 'Enter a name for location...'
+	   	});
+	   	
+	   	var okButton = Ti.UI.createButton({
+	   		top: '120px',
+	   		width: '50px',
+	   		height: '100px',
+	   		title: 'OK'
+	   	});
+	   	
+	   	/*mapview.addEventListener('click',function(){
+		   	
+		   	var coordinate = calculateLatLngfromPixels(mapview, e.x, e.y);
+		    var longitude = coordinate.lat;
+		    var latitude = coordinate.lat;
+		   	
+		});*/
+	   	
+	});
     mainWindow.add(addButton);
 });

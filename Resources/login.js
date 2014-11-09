@@ -1,8 +1,6 @@
 var loginWindow = Ti.UI.createWindow({
 	title: 'Login',
-	backgroundColor:'transparent',
-	navBarHidden: true,
-	tabBarHidden: true
+	backgroundColor:'transparent'
 });
 
 var view1= Ti.UI.createView({
