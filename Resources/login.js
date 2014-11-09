@@ -241,12 +241,7 @@ var button22=Ti.UI.createButton({
 	
 });
 
-/*button22.addEventListener('click', function(e){
-	
-		viewbuyuk.left=0;
-		viewbuyuk2.left=ScreenWidth +'px';
-		
-});*/
+
 button22.addEventListener('click', function(e){
 	//viewbuyuk.left=ScreenWidth +'px';
 	viewbuyuk.animate({
