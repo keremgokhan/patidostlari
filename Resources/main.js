@@ -57,13 +57,13 @@ Titanium.Geolocation.getCurrentPosition(function(e)
     mainWindow.add(mapview);
     
     var addButton = Ti.UI.createButton({
-    	width: '150px',
-    	height: '150px',
-    	borderRadius: '75px',
+    	width: '120px',
+    	height: '120px',
+    	borderRadius: '60px',
     	title: '+',
     	bottom: '30px',
     	backgroundColor: '#FD9627',
-    	font:{fontSize:20,fontFamily:'Helvetica Neue'},
+    	font:{fontSize:40,fontFamily:'Helvetica Neue'},
     });
     addButton.addEventListener('click',function(){
 	   	

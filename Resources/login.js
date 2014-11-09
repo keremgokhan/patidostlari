@@ -138,6 +138,14 @@ var viewbuyuk= Ti.UI.createView({
 
 //////////////////////////////////////////////////////
 //sign up ekrani
+
+var logo2=Ti.UI.createImageView({
+	image:'logo01.png',
+	width:'250px',
+	top: '10%',
+	opacity: 0
+});
+
 var view21= Ti.UI.createView({
 	backgroundColor:'transparent',
 	width:'450px',
@@ -158,6 +166,11 @@ var textField21= Ti.UI.createTextField({
 	left:0,
 	top:0
 	
+});
+
+textField21.addEventListener('change', function(e){
+	logo2.opacity=0.33;
+		
 });
 
 var view22= Ti.UI.createView({
@@ -181,6 +194,10 @@ var textField22= Ti.UI.createTextField({
 	
 });
 
+textField22.addEventListener('change', function(e){
+	logo2.opacity=0.66;
+		
+});
 var view23= Ti.UI.createView({
 	backgroundColor:'transparent',
 	width:'450px',
@@ -201,6 +218,10 @@ var textField23= Ti.UI.createTextField({
 	left:0,
 	top:0
 	
+});
+textField23.addEventListener('change', function(e){
+	logo2.opacity=1;
+		
 });
 
 var view24= Ti.UI.createView({
@@ -225,6 +246,7 @@ var textField24= Ti.UI.createTextField({
 	
 });
 
+
 var button22=Ti.UI.createButton({
 	title:'Back',
 	top:0,
@@ -239,12 +261,7 @@ var button22=Ti.UI.createButton({
 	
 });
 
-/*button22.addEventListener('click', function(e){
-	
-		viewbuyuk.left=0;
-		viewbuyuk2.left=ScreenWidth +'px';
-		
-});*/
+
 button22.addEventListener('click', function(e){
 	//viewbuyuk.left=ScreenWidth +'px';
 	viewbuyuk.animate({
@@ -357,6 +374,8 @@ view25.add(button22);
 view25.add(button23);
 
 viewbuyuk2.add(view25);
+//////////////////////////////////////
+viewbuyuk2.add(logo2);
 //////////////////////////////////////
 loginWindow.add(viewbuyuk2);
 ///////////////////////////////////
