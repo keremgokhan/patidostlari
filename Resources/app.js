@@ -150,13 +150,15 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						borderWidth:5
 					});
 					
-					var bg = '#7D736C';
+					var bg = 'white';
 					var text = "Empty (Click to fill)";
+					var textcolor= '#FD9627';
 					
 					if (locat.block0.length > 0)
 					{
 						bg = '#FD9627';
 						text = locat.block0;
+						textcolor= 'white';
 					}
 					
 					var locview1= Ti.UI.createView({
@@ -164,6 +166,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						backgroundColor: bg,
 						borderRadius:15,
 						borderWidth:5,
+						borderColor:'white',
 						width:'500px',
 						top:'50%',
 						//text: '09.00-12.00',
@@ -177,7 +180,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						backgroundColor: 'transparent',
 						width:'500px',
 						text: '09.00-12.00',
-						color:'white',
+						color: textcolor,
 						height:'100px',
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						top:'25px'
@@ -189,19 +192,21 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						backgroundColor: 'transparent',
 						width:'500px',
 						text: text,
-						color:'white',
+						color: textcolor,
 						height:'100px',
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						bottom:'25px'
 					});
 					
-					bg = '#7D736C';
+					bg = 'white';
 					text = "Empty (Click to fill)";
+					textcolor= '#FD9627';
 					
 					if (locat.block1.length > 0)
 					{
 						bg = '#FD9627';
 						text = locat.block1;
+						textcolor= 'white';
 					}
 					
 					var locview2= Ti.UI.createView({
@@ -209,6 +214,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						backgroundColor: bg,
 						borderRadius:15,
 						borderWidth:5,
+						borderColor:'white',
 						width:'500px',
 						top:'75%',
 						height:'250px'
@@ -221,7 +227,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						backgroundColor: 'transparent',
 						width:'500px',
 						text: '15.00-18.00',
-						color:'white',
+						color: textcolor,
 						height:'100px',
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						top:'25px'
@@ -233,7 +239,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 						backgroundColor: 'transparent',
 						width:'500px',
 						text: text,
-						color:'white',
+						color: textcolor,
 						height:'100px',
 						font:{fontSize:25,fontFamily:'Helvetica Neue'},
 						bottom:'25px'
