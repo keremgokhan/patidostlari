@@ -393,8 +393,8 @@ Titanium.Geolocation.getCurrentPosition(function(e)
     });
     addButton.addEventListener('click',function(){
 	   	
-	   	addButton.bottom = -200 + 'px';
-	   	
+	   	//addButton.bottom = -200 + 'px';
+	   	addButton.animate({bottom: -200+'px', duration: 400});
 	   	
 	   	var locationNameField = Ti.UI.createTextField({
 	   		top: '10px',
@@ -441,12 +441,44 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 			    fields: {
 			        latitude: llatitude,
 			        longitude: llongitude,
-			        name: lname
+			        name: lname,
+			        block0: '',
+			        block1: ''
 			    }
 			}, function (e) {
 			    if (e.success) {
 			        //var car = e.cars[0];
-			        alert('Success!');
+			        //alert('Success!');
+			        mapview.removeAllAnnotations();
+			        Cloud.Objects.query({
+					    classname: 'Location'
+					}, function (e) {
+					    if (e.success) {
+					        /*alert('Success:\n' +
+					            'Count: ' + e.Location.length);*/
+					        for (var i = 0; i < e.Location.length; i++) {
+					            var loc = e.Location[i];
+					            /*alert('id: ' + cars.id + '\n' +
+					                'make: ' + car.make + '\n' +
+					                'color: ' + car.color + '\n' +
+					                'year: ' + car.year + '\n' +
+					                'created_at: ' + car.created_at);*/
+					            var temp = MapModule.createAnnotation({
+								    latitude:loc.latitude,
+								    longitude:loc.longitude,
+								    title:loc.name,
+								    pincolor:MapModule.ANNOTATION_ORANGE,
+								    myid:loc.id // Custom property to uniquely identify this annotation.
+								});
+								mapview.addAnnotation(temp);
+								addButton.animate({bottom: '30px', duration: 400});
+					        }
+					    } else {
+					        alert('Error:\n' +
+					            ((e.error && e.message) || JSON.stringify(e)));
+					    }
+					});
+			        
 			    } else {
 			        alert('Error:\n' +
 			            ((e.error && e.message) || JSON.stringify(e)));
