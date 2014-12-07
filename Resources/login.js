@@ -3,6 +3,11 @@ var loginWindow = Ti.UI.createWindow({
 	backgroundColor:'transparent'
 });
 
+loginWindow.addEventListener('open', function(){
+    // Grab the window's action bar instance and call the hide method
+    loginWindow.activity.actionBar.hide();
+});
+
 
 var logo=Ti.UI.createImageView({
 	image:'logo02.png',

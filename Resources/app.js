@@ -12,7 +12,6 @@ var mainWindow = Ti.UI.createWindow({
 });
 
 
-
 var MapModule = require('ti.map');
 
 var rc = MapModule.isGooglePlayServicesAvailable();

@@ -34,11 +34,12 @@
             <uses-permission android:name="com.highhopes.pati.permission.MAPS_RECEIVE"/>
             <permission
                 android:name="com.highhopes.pati.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
-            <application>
+            <application android:theme="@style/Theme.NoActionBar">
                 <!-- Replace "PASTE YOUR GOOGLE MAPS API KEY HERE" with the Google API key you obtained -->
                 <meta-data
                     android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB3SFSzS81gWMnqwKK547stFShsXckDcms"/>
             </application>
+            <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="19"/>
         </manifest>
     </android>
     <modules>
