@@ -390,12 +390,8 @@ Titanium.Geolocation.getCurrentPosition(function(e)
     	backgroundColor: '#FD9627',
     	font:{fontSize:40,fontFamily:'Helvetica Neue'},
     });
-    addButton.addEventListener('click',function(){
-	   	
-	   	//addButton.bottom = -200 + 'px';
-	   	addButton.animate({bottom: -200+'px', duration: 400});
-	   	
-	   	var locationNameField = Ti.UI.createTextField({
+    
+    var locationNameField = Ti.UI.createTextField({
 	   		top: '10px',
 	   		height: '100px',
 	   		width: '90%',
@@ -404,25 +400,29 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 	   		borderColor: '#FD9627',
 	   		borderRadius: 15,
 	   		borderWidth: 5,
-	   		hintText: 'Enter a name for location...'
+	   		hintText: 'Enter a name for location...',
+	   		visible: false,
+	   		softKeyboardOnFocus : Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS
 	   	});
 	   	
-	   	var okButton = Ti.UI.createButton({
-	   		top: '120px',
-	   		width: '250px',
-	   		height: '100px',
-	   		color: 'white',
-	   		borderRadius: 15,
-	   		borderWidth: 5,
-	   		backgroundColor: '#FD9627',
-	   		font:{fontSize:20,fontFamily:'Helvetica Neue'},
-	   		title: 'OK'
-	   	});
-	   	
-	   	okButton.addEventListener('click',function(){
+   	var okButton = Ti.UI.createButton({
+   		top: '120px',
+   		width: '250px',
+   		height: '100px',
+   		color: 'white',
+   		borderRadius: 15,
+   		borderWidth: 5,
+   		backgroundColor: '#FD9627',
+   		font:{fontSize:20,fontFamily:'Helvetica Neue'},
+   		title: 'OK',
+   		visible: false
+   	});
+   	
+   	okButton.addEventListener('click',function(){
 		   	
 		   	var lname = locationNameField.value;
 		   	
+		   	locationNameField.blur();
 		   	locationNameField.hide();
 		   	okButton.hide();
 		   			
@@ -486,10 +486,24 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 			});
 		
 		});
-		mainWindow.add(locationNameField);
-		mainWindow.add(okButton);
+    
+    addButton.addEventListener('click',function(){
+	   	
+	   	//addButton.bottom = -200 + 'px';
+	   	addButton.animate({bottom: -200+'px', duration: 400});
+	   	
+	   	locationNameField.setVisible(true);
+	   	locationNameField.show();
+	   	okButton.setVisible(true);
+	   	okButton.show();
+		
+		locationNameField.focus();
 	   	
 	});
     mainWindow.add(addButton);
+    mainWindow.add(locationNameField);
+    locationNameField.hide();
+	mainWindow.add(okButton);
+	okButton.hide();
 });
 mainWindow.open();
