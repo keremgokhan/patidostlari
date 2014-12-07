@@ -95,9 +95,7 @@ button2.addEventListener('click', function(e){
 		}, function(e) {
 		    if (e.success) {
 		    	
-		    	//Ti.include('main.js');
-		    	mainWindow.open();
-		    	
+		    	Ti.include('main.js');
 		    	
 		    	     
 		    } else {
@@ -341,7 +339,20 @@ button23.addEventListener('click', function(e){
 		}, function(e) {
 		    if (e.success) {
 		        
-		    	mainWindow.open();
+		    	Cloud.Users.login({ 
+				    login: textField21.value,
+				    password: textField24.value
+				}, function(e) {
+				    if (e.success) {
+				    	
+				    	Ti.include('main.js');
+				    	
+				    	
+				    	     
+				    } else {
+				        Ti.API.info("Login failed.");
+				    }
+				});
 		    	
 		    } else {
 		        alert("Signup failed.");
